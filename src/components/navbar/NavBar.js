@@ -2,6 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import CartWidget from './CartWidget';
+import Logo from "../../assets/logoplanb.png"
 
 const NavBar = () => {
   return (
@@ -10,13 +11,14 @@ const NavBar = () => {
         <Container>
           <Navbar.Brand href="#home">
           <img
-            alt="logo" 
-            src= '/assets/logoplanb.png'
+            alt= "logo"
+            src= {Logo}
             width="100"
               height="100"
               className="d-inline-block align-top"
           />{' '}
           </Navbar.Brand>
+          <CartWidget />
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
@@ -27,7 +29,6 @@ const NavBar = () => {
             <Nav.Link href="#contacto">Contacto</Nav.Link>
           </Nav>
         </Navbar.Collapse>
-        <CartWidget />
         </Container>
       </Navbar>
     </>
