@@ -1,5 +1,7 @@
-import ItemCount from "./ItemCount"
-import ItemList from "./ItemList"
+import ItemCount from "../itemcount/ItemCount"
+import ItemList from "../itemList/ItemList"
+import "./ItemListContainer.css"
+
 
 const ItemListContainer = (props) => {
 

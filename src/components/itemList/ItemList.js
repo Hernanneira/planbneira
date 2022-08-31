@@ -1,6 +1,7 @@
-import Item from "./Item"
-import datos from "./Datos"
+import Item from "../item/Item"
+import datos from "../helpers/Datos"
 import { useEffect, useState } from "react"
+import "./ItemList.css"
 
 const pedirDatos = () => {
         return new Promise((resolve, reject) => {
@@ -23,8 +24,8 @@ const [productos, setProductos] = useState([])
     
 
     return(
-        <div>
-            <Item productos={productos}/>
+        <div className="ItemList container">
+            {productos.map( (prod) => <Item producto={prod} key={prod.id}/>)}
         </div>
     )
 }

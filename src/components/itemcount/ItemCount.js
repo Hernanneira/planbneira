@@ -11,7 +11,7 @@ const ItemCount = (props) => {
 
     const sumar = () => {
         if (counter < props.stock) {
-          setCounter (counter + 1)   
+        setCounter (counter + 1)   
         }
     }
 
@@ -24,7 +24,7 @@ const ItemCount = (props) => {
 
     return (
         <div>
-            <Card style={{ width: '8rem',}}>
+            <Card >
                 <Card.Body>
                     <Card.Title>Contador</Card.Title>
                     <Button onClick={sumar} variant="outline-warning btn-sm">+</Button>
