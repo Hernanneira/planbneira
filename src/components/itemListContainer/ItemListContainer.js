@@ -1,16 +1,16 @@
-import ItemCount from "../itemcount/ItemCount"
+import { useParams } from "react-router-dom"
 import ItemList from "../itemList/ItemList"
 import "./ItemListContainer.css"
 
 
-const ItemListContainer = (props) => {
+const ItemListContainer = () => {
+
 
     return(
     <div className='fondo text-center'>
         <h2 className="container text-warning bg-dark border border-warning">
-        {props.greeting}
+          Productos
         </h2>
-        <ItemCount stock={5} initial={1} />
         <ItemList />
     </div>
   )}

@@ -23,10 +23,10 @@ const ItemCount = (props) => {
     }
 
     return (
-        <div>
+        <div className="text-dark">
             <Card >
                 <Card.Body>
-                    <Card.Title>Contador</Card.Title>
+                    <Card.Title>Cantidad</Card.Title>
                     <Button onClick={sumar} variant="outline-warning btn-sm">+</Button>
                     <span className='mx-2'>{counter}</span>
                     <Button onClick={restar} variant="outline-warning btn-sm" >-</Button>

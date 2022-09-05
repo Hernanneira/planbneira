@@ -3,13 +3,14 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import CartWidget from '../cart/CartWidget';
 import Logo from "../../assets/logoplanb.png"
+import {Link} from 'react-router-dom'
 
 const NavBar = () => {
   return (
     <>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="#home">
+          <Link to="/">
           <img
             alt= "logo"
             src= {Logo}
@@ -17,16 +18,16 @@ const NavBar = () => {
               height="100"
               className="d-inline-block align-top"
           />{' '}
-          </Navbar.Brand>
+          </Link>
           <CartWidget />
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#vinos">Vinos</Nav.Link>
-            <Nav.Link href="#cervezas">Cervezas</Nav.Link>
-            <Nav.Link href="#bebidas">Bebidas</Nav.Link>
-            <Nav.Link href="#contacto">Contacto</Nav.Link>
+            <Link className='nav-link' to="/">home</Link>
+            <Link className='nav-link' to="/productos/vino">vinos</Link>
+            <Link className='nav-link' to="/productos/cerveza">cervezas</Link>
+            <Link className='nav-link' to="/productos/bebida">bebibas</Link>
+            <Link className='nav-link' to="/contacto">contacto</Link>
           </Nav>
         </Navbar.Collapse>
         </Container>
