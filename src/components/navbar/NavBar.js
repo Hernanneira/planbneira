@@ -19,10 +19,10 @@ const NavBar = () => {
               className="d-inline-block align-top"
           />{' '}
           </Link>
-          <CartWidget />
+          
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
+          <Nav className="mx-auto">
             <Link className='nav-link' to="/">home</Link>
             <Link className='nav-link' to="/productos/vino">vinos</Link>
             <Link className='nav-link' to="/productos/cerveza">cervezas</Link>
@@ -30,6 +30,7 @@ const NavBar = () => {
             <Link className='nav-link' to="/contacto">contacto</Link>
           </Nav>
         </Navbar.Collapse>
+        <CartWidget />
         </Container>
       </Navbar>
     </>

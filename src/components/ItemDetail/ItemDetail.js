@@ -5,7 +5,8 @@ import ItemCount from "../itemcount/ItemCount"
 const ItemDetail = ({item}) => {
     return (
         <div className='fondo'>
-            {   <div className='container d-inline-flex detalle'>
+            {   
+                <div className='container d-inline-flex detalle'>
                     <img className="imgDetail img-fluid" src={item.pictureUrl} alt="Img"/>
                     <div className='text-white'>
                         <h2>{item.title}</h2>

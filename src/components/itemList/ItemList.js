@@ -3,10 +3,11 @@ import { useEffect, useState } from "react"
 import "./ItemList.css"
 import pedirDatos from "../helpers/PedirDatos"
 import { useParams } from "react-router-dom"
+import SpinnerS from "../spinner/spinner"
 
 const ItemList = () => {
 
-const [productos, setProductos] = useState([])
+const [productos, setProductos] = useState(null)
 const { categoriaId } = useParams()
 console.log(categoriaId)
 
@@ -25,7 +26,12 @@ console.log(categoriaId)
 
     return(
         <div className="ItemList container">
-            {productos.map( (prod) => <Item producto={prod} key={prod.id}/>)}
+            { productos 
+            ?
+                productos.map( (prod) => <Item producto={prod} key={prod.id}/>)
+            :
+            <SpinnerS />
+            }
         </div>
     )
 }
