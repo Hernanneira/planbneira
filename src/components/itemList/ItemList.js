@@ -8,10 +8,12 @@ import SpinnerS from "../spinner/spinner"
 const ItemList = () => {
 
 const [productos, setProductos] = useState(null)
+const [loading, setLoading] = useState(true)
 const { categoriaId } = useParams()
 console.log(categoriaId)
 
     useEffect(()=>{
+        setLoading(true)
         pedirDatos()
         .then( (res) => {
             if(!categoriaId){
@@ -19,18 +21,20 @@ console.log(categoriaId)
             }else{
                 setProductos(res.filter((prod)=> prod.categoria === categoriaId))
             }
-
+        })
+        .finally(()=>{
+            setLoading(false)
         })
     }, [categoriaId])
     
 
     return(
         <div className="ItemList container">
-            { productos 
+            { loading 
             ?
-                productos.map( (prod) => <Item producto={prod} key={prod.id}/>)
-            :
             <SpinnerS />
+            :
+            productos.map( (prod) => <Item producto={prod} key={prod.id}/>)
             }
         </div>
     )
