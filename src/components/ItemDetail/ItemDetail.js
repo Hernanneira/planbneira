@@ -34,11 +34,15 @@ const ItemDetail = ({item}) => {
                     <div className='text-white'>
                         <h2>{item.title}{item.imagen}</h2>
                         <p>{item.description}</p>
-                        <p>${item.price}</p>
+                        <p>Precio articulo ${item.price}</p>
 
                         {isInCart(item.id)
-                        ?   <Link to="/cart" className ="btn btn-success">Terminar Compra</Link>
+                        ?   <>
+                            <div>Agregaste exitosamente {cantidad} unidades de {item.title} por ${cantidad * item.price}</div>
+                            <Link to="/cart" className ="btn btn-success">Terminar Compra</Link>
+                            </>
                         :   <ItemCount 
+                            price={item.price}
                             stock={item.stock} 
                             counter={cantidad}
                             setCounter={setCantidad}

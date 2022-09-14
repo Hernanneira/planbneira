@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 
 
 
-const ItemCount = ({stock, counter, setCounter, handleAdd}) => {
+const ItemCount = ({stock, counter, setCounter, handleAdd, price}) => {
 
 
     const sumar = () => {
@@ -28,6 +28,8 @@ const ItemCount = ({stock, counter, setCounter, handleAdd}) => {
                     <Button onClick={restar} variant="outline-warning btn-sm" >-</Button>
                     <span className='mx-2'>{counter}</span>
                     <Button onClick={sumar} variant="outline-warning btn-sm">+</Button>
+                    <Card.Text> Precio total : $ {counter * price}
+                    </Card.Text>
                 </Card.Body>
                 <Card.Footer className="text-muted">Stock: {stock}</Card.Footer>
             </Card>

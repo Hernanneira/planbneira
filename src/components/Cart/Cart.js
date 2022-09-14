@@ -25,6 +25,7 @@ const Cart = () => {
                         <th>Detalle</th>
                         <th>Cantidad</th>
                         <th>Precio unidad</th>
+                        <th>Sub total</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,11 +34,12 @@ const Cart = () => {
                             <td><img src={item.imagen} alt="producto" style={{height: 100}}/> <Button onClick={()=>removeItem(item.id)} variant="danger" ><img src={Tacho} alt="tacho"/></Button></td>
                             <td>{item.descripcion}</td>
                             <td>{item.cantidad} </td>
-                            <td>{item.precio}</td>
+                            <td>${item.precio}</td>
+                            <td>${item.precio * item.cantidad}</td>
                         </tr>
                     )}
                     <tr>
-                        <td colSpan={4}>Total de tu compra: ${cartTotal()}</td>
+                        <td colSpan={5}>Total de tu compra: ${cartTotal()}</td>
                     </tr>
                 </tbody>
                 <Button onClick={emptyCart} variant="danger">Vaciar</Button>
