@@ -6,6 +6,7 @@ import Logo from "../../assets/logoplanb.png"
 import {Link} from 'react-router-dom'
 
 const NavBar = () => {
+
   return (
     <>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">

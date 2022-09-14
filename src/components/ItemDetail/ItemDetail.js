@@ -36,10 +36,9 @@ const ItemDetail = ({item}) => {
                         <p>{item.description}</p>
                         <p>${item.price}</p>
 
-                        {isInCart(item.id) ?
-                        <Link to="/cart" className ="btn btn-success">Terminar Compra</Link>
-                        :
-                        <ItemCount 
+                        {isInCart(item.id)
+                        ?   <Link to="/cart" className ="btn btn-success">Terminar Compra</Link>
+                        :   <ItemCount 
                             stock={item.stock} 
                             counter={cantidad}
                             setCounter={setCantidad}

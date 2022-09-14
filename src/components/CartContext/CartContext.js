@@ -12,6 +12,10 @@ const CartProvider = ({children}) => {
         setCart([...cart, item])
     }
 
+    const removeItem = (id) => {
+        return setCart((cart.filter((item) =>item.id !== id )))
+    } 
+
     const isInCart = (id) => {
         return cart.some((item) => item.id === id)
     }
@@ -57,6 +61,7 @@ const CartProvider = ({children}) => {
             cartTotal,
             emptyCart,
             isInCart,
+            removeItem,
         }}>
         {children}
         </CartContext.Provider>

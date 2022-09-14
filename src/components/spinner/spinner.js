@@ -3,7 +3,7 @@ import "./spinner.css"
 
 const SpinnerS = () => {
   return (
-    <div className = "fondo">
+    <div className = "loader ">
         <Spinner animation="border" role="status">
         <span className="visually-hidden">Loading...</span>
         </Spinner>
