@@ -25,9 +25,9 @@ const ItemCount = ({stock, counter, setCounter, handleAdd, price}) => {
             <Card >
                 <Card.Body>
                     <Card.Title>Cantidad</Card.Title>
-                    <Button onClick={restar} variant="outline-warning btn-sm" >-</Button>
+                    <Button onClick={restar} variant={`${counter === 1 ? "outline-danger" : "outline-warning "} btn-sm`} >-</Button>
                     <span className='mx-2'>{counter}</span>
-                    <Button onClick={sumar} variant="outline-warning btn-sm">+</Button>
+                    <Button onClick={sumar} variant={`${counter === stock ? "outline-danger" : "outline-warning "} btn-sm`}>+</Button>
                     <Card.Text> Precio total : $ {counter * price}
                     </Card.Text>
                 </Card.Body>

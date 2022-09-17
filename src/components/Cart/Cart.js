@@ -13,7 +13,7 @@ const Cart = () => {
             cart.length === 0
             ?   <> 
                 <h2 className="container">Aun no agregaste productos a tu carrito</h2>
-                <Link to="/">ir a comprar</Link> 
+                <Link className ="btn btn-success" to="/">ir a comprar</Link> 
                 </>
             :   
             <>

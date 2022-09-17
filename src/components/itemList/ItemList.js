@@ -1,9 +1,11 @@
 import Item from "../item/Item"
 import { useEffect, useState } from "react"
 import "./ItemList.css"
-import pedirDatos from "../helpers/PedirDatos"
+// import pedirDatos from "../helpers/PedirDatos"
 import { useParams } from "react-router-dom"
 import SpinnerS from "../spinner/spinner"
+import { collection, getDocs, query, where } from "firebase/firestore"
+import {db } from "../../firebase/config"
 
 const ItemList = () => {
 
@@ -14,14 +16,24 @@ console.log(categoriaId)
 
     useEffect(()=>{
         setLoading(true)
-        pedirDatos()
-        .then( (res) => {
-            if(!categoriaId){
-                setProductos(res) 
-            }else{
-                setProductos(res.filter((prod)=> prod.categoria === categoriaId))
-            }
-        })
+        const productosRef = collection(db,'productos')
+        const q = categoriaId
+                    ?query(productosRef, where ('categoria', '==', categoriaId))
+                    :productosRef
+        getDocs(q)
+            .then((snap)=>{
+                const productosDB = snap.docs.map( (doc) => ({id: doc.id, ...doc.data()}) )
+                console.log(snap.docs.map( (doc) => ({id: doc.id, ...doc.data()}) )) 
+                setProductos(productosDB)
+            })
+        // pedirDatos()
+        // .then( (res) => {
+        //     if(!categoriaId){
+        //         setProductos(res) 
+        //     }else{
+        //         setProductos(res.filter((prod)=> prod.categoria === categoriaId))
+        //     }
+        // })
         .finally(()=>{
             setLoading(false)
         })
