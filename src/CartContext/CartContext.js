@@ -13,7 +13,26 @@ const CartProvider = ({children}) => {
     }
 
     const removeItem = (id) => {
-        return setCart((cart.filter((item) =>item.id !== id )))
+        Swal.fire({
+            title: 'Seguro quieres eliminar el producto?',
+            text: "Podrás volver a agregarlo si lo necesitas",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar',
+            cancelButtonText:'Cancelar'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire(
+                setCart((cart.filter((item) =>item.id !== id ))),
+                'eliminado!',
+                'eliminado con exito.',
+                'success'
+              )
+            }
+          })
+        // return setCart((cart.filter((item) =>item.id !== id )))
     } 
 
     const isInCart = (id) => {
@@ -53,6 +72,17 @@ const CartProvider = ({children}) => {
         
     }
 
+    const bought = () => {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'compra realizada',
+        showConfirmButton: false,
+        timer: 3000
+      })
+      setCart([])
+    }
+
     return(
         <CartContext.Provider value={{
             cart,
@@ -62,6 +92,7 @@ const CartProvider = ({children}) => {
             emptyCart,
             isInCart,
             removeItem,
+            bought,
         }}>
         {children}
         </CartContext.Provider>

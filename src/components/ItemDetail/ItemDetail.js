@@ -39,8 +39,8 @@ const ItemDetail = ({item}) => {
                         {isInCart(item.id)
                         ?   <>
                             <div>Agregaste exitosamente {cantidad} unidades de {item.title} por ${cantidad * item.price}</div>
-                            <Link to="/cart" className ="btn btn-success">Terminar Compra</Link>
-                            <Link className ="btn btn-outline-success" to="/">Seguir comprando</Link> 
+                            <Link to="/cart" className ="btn btn-success mx-3">Terminar Compra</Link>
+                            <Link className ="btn btn-outline-success mx-3" to="/">Seguir comprando</Link> 
                             </>
                         :   <ItemCount 
                             price={item.price}

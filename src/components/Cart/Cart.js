@@ -13,7 +13,7 @@ const Cart = () => {
         <div className="cart"> {
             cart.length === 0
             ?   <> 
-                <h2>Aun no agregaste productos a tu carrito</h2>
+                <h2>Tu carrito esta Vacio</h2>
                 <Link className ="btn btn-success" to="/">ir a comprar</Link> 
                 </>
             :   
@@ -44,6 +44,7 @@ const Cart = () => {
                     </tr>
                 </tbody>
                 <Button onClick={emptyCart} variant="danger">Vaciar</Button>
+                <Link to= '/checkout' className="btn btn-success mx-2">Terminar mi compra</Link>
             </Table>
             </>
             }
