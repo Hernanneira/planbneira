@@ -6,9 +6,11 @@ export const CartContext = createContext()
 
 const init = JSON.parse(localStorage.getItem('carrito')) || []
 
-const CartProvider = ({children}) => {
+const CartProvider = ({children},initialForm, validateForm) => {
 
     const [cart, setCart] =useState(init)
+    const [form,setForm] = useState(initialForm);
+    const [errors,setErrors] = useState({});
 
     const addToCart = (item) => {
         setCart([...cart, item])
@@ -92,12 +94,49 @@ const CartProvider = ({children}) => {
       setCart([])
     }
 
+    const handleChange = (e) =>{
+        setForm({
+            ...form,
+            [e.target.name]: e.target.value})
+    }
+    const handleBlur = (e) =>{
+        handleChange(e)
+        setErrors(validateForm(form))
+    }
+    const handleSubmit = (e) =>{
+        e.preventDefault()
+        setErrors(validateForm(form))
+
+        const orden = {
+          usuario: form,
+          carrito: cart,
+          total: cartTotal(),
+          fecha: new Date()
+      }
+
+        if((Object.keys(errors).length !== 0) || (form.nombre.length === 0)) {
+            fracaso()
+        }else{
+            exito()
+        }
+
+        addDoc(ordenesRef, orden)
+            .then((doc)=>{
+                setOrdenId(doc.id)
+                exito()
+            })
+    }
+
     useEffect(() => {
       localStorage.setItem('carrito', JSON.stringify(cart))
   }, [cart])
-
     return(
         <CartContext.Provider value={{
+            form,
+            errors,
+            handleChange,
+            handleBlur,
+            handleSubmit,
             cart,
             addToCart,
             cartQuantity,
