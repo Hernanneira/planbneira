@@ -1,16 +1,12 @@
 import { createContext } from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Swal from 'sweetalert2'
 
 export const CartContext = createContext()
 
-const init = JSON.parse(localStorage.getItem('carrito')) || []
+const CartProvider = ({children}) => {
 
-const CartProvider = ({children},initialForm, validateForm) => {
-
-    const [cart, setCart] =useState(init)
-    const [form,setForm] = useState(initialForm);
-    const [errors,setErrors] = useState({});
+    const [cart, setCart] =useState([])
 
     const addToCart = (item) => {
         setCart([...cart, item])
@@ -36,7 +32,6 @@ const CartProvider = ({children},initialForm, validateForm) => {
               )
             }
           })
-        // return setCart((cart.filter((item) =>item.id !== id )))
     } 
 
     const isInCart = (id) => {
@@ -76,6 +71,17 @@ const CartProvider = ({children},initialForm, validateForm) => {
         
     }
 
+    const bought = () => {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'compra realizada',
+        showConfirmButton: false,
+        timer: 3000
+      })
+      setCart([])
+    }
+
     const fracaso = () => {
       Swal.fire(
         'Campo incorrecto',
@@ -94,49 +100,8 @@ const CartProvider = ({children},initialForm, validateForm) => {
       setCart([])
     }
 
-    const handleChange = (e) =>{
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value})
-    }
-    const handleBlur = (e) =>{
-        handleChange(e)
-        setErrors(validateForm(form))
-    }
-    const handleSubmit = (e) =>{
-        e.preventDefault()
-        setErrors(validateForm(form))
-
-        const orden = {
-          usuario: form,
-          carrito: cart,
-          total: cartTotal(),
-          fecha: new Date()
-      }
-
-        if((Object.keys(errors).length !== 0) || (form.nombre.length === 0)) {
-            fracaso()
-        }else{
-            exito()
-        }
-
-        addDoc(ordenesRef, orden)
-            .then((doc)=>{
-                setOrdenId(doc.id)
-                exito()
-            })
-    }
-
-    useEffect(() => {
-      localStorage.setItem('carrito', JSON.stringify(cart))
-  }, [cart])
     return(
         <CartContext.Provider value={{
-            form,
-            errors,
-            handleChange,
-            handleBlur,
-            handleSubmit,
             cart,
             addToCart,
             cartQuantity,
@@ -144,8 +109,7 @@ const CartProvider = ({children},initialForm, validateForm) => {
             emptyCart,
             isInCart,
             removeItem,
-            exito,
-            fracaso,
+            bought,
         }}>
         {children}
         </CartContext.Provider>

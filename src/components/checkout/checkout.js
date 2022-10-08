@@ -6,63 +6,125 @@ import { db } from "../../firebase/config"
 import Swal from 'sweetalert2'
 import './checkout.css'
 
-
-
 const Checkout = () => {
     
-    const {cart, form, errors, handleChange, handleBlur, handleSubmit} = useContext(CartContext)
+    const {cart, cartTotal, bought} = useContext(CartContext)
     const [ordenId, setOrdenId] = useState(null)
-    
-    
-    const initialForm = {
+    const [values, setValues] = useState({
         nombre:'',
-        direccion:'',
         email:'',
+        direccion:'',
         telefono:'',
-        comentarios:'',
-    }
-    const validationForm = (form) => {
+    })
+    const [errors,setErrors] = useState({});
+
+    const validateForm = () => {
         let errors = {}
         let regexName = /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
         let regexEmail = /^(\w+[/./-]?){1,}@[a-z]+[/.]\w{2,}$/;
         let regexComments = /^.{0,255}$/;
     
-        if (!form.nombre.trim()){
+        if (!values.nombre.trim()){
             errors.nombre = "el campo nombre es requerido."
-        } else if (!regexName.test(form.nombre.trim())){
+        } else if (!regexName.test(values.nombre.trim())){
             errors.nombre = "el campo nombre solo acepta letras y espacios en blanco."
-        } else if (form.nombre.length < 3) {
+        } else if (values.nombre.length < 3) {
             errors.nombre = "el nombre debe tener mas de 3 caracteres"
         }
         
-        if (!form.direccion.trim()){
+        if (!values.direccion.trim()){
             errors.direccion = "el campo direccion es requerido."
-        } else if (form.direccion.length < 3) {
+        } else if (values.direccion.length < 3) {
             errors.direccion = "La direccion debe tener mas de 3 caracteres"
         }
     
-        if (!form.email.trim()){
+        if (!values.email.trim()){
             errors.email = "el campo email es requerido."
-        } else if (!regexEmail.test(form.email.trim())){
+        } else if (!regexEmail.test(values.email.trim())){
             errors.email = "el campo email ses incorrecto."
         }
     
-        if (!form.telefono.trim()){
+        if (!values.telefono.trim()){
             errors.telefono = "el campo telefono es requerido."
-        } else if (form.telefono.length < 7) {
+        } else if (values.telefono.length < 7) {
             errors.telefono = "La telefono debe tener mas de 7 numeros"
         }
     
-        if(!regexComments.test(form.comentarios.trim())){
-            errors.comentarios = "el campo comentarios no debe exceder los 255 caracteres."
-        }
+        // if(!regexComments.test(values.comentarios.trim())){
+        //     errors.comentarios = "el campo comentarios no debe exceder los 255 caracteres."
+        // }
         return errors
     }
 
+    const handleInputChange = (e) => {
+        setValues({
+            ...values,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const handleBlur = (e) =>{
+        handleInputChange(e)
+        setErrors(validateForm(values))
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const orden = {
+            usuario: values,
+            carrito: cart,
+            total: cartTotal(),
+            fecha: new Date()
+        } 
+        console.log(orden)
+
+        // if(values.nombre.length < 3) {
+        //     Swal.fire(
+        //         'Nombre incorrecto',
+        //         'Por favor escríbelo nuevamente',
+        //         'error'
+        //     )
+        //     return
+        // }
+
+        // if(values.email.length < 3) {
+        //     Swal.fire(
+        //         'email incorrecto',
+        //         'Por favor escríbelo nuevamente',
+        //         'error'
+        //     )
+        //     return
+        // }
+
+        // if(values.direccion.length < 4) {
+        //     Swal.fire(
+        //         'direccion incorrecto',
+        //         'Por favor escríbelo nuevamente',
+        //         'error'
+        //     )
+        //     return
+        // }
+
+        // if(values.telefono.length < 8) {
+        //     Swal.fire(
+        //         'telefono incorrecto',
+        //         'Por favor escríbelo nuevamente',
+        //         'error'
+        //     )
+        //     return
+        // }
+
+        addDoc(ordenesRef, orden)
+            .then((doc)=>{
+                setOrdenId(doc.id)
+                bought()
+            })
+        
+    }
 
     if(ordenId) {
         return (
-            <div className="checkout_finished">
+            <div>
                 <h2>Compra realizada</h2>
                 <p>tu numero de orden es: {ordenId}</p>
             </div>
@@ -77,69 +139,42 @@ const Checkout = () => {
 
 
     return (
-        <div className='checkout'>
         <div className='container'>
-            <h2> Ingresa tus datos para la compra</h2>
             <form onSubmit={handleSubmit}>
-            <input
-                className="form-control my-3"
-                type="text"
-                name="nombre"
-                placeholder="escribe tu nombre"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={form.nombre}
-                required
-                />
-                {errors.nombre && <p className="text-danger">{errors.nombre}</p>}
                 <input
-                className="form-control my-3"
-                type="text"
-                name="direccion"
-                placeholder="escribe tu direccion"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={form.direccion}
-                required
-                />
-                {errors.direccion && <p className="text-danger">{errors.direccion}</p>}
+                    onChange={handleInputChange}
+                    name="nombre"
+                    type={"text"} 
+                    className="form-control my-3"  
+                    placeholder="tu nombre"
+                    onBlur={handleBlur} />
+                    {errors.nombre && <p className="text-danger">{errors.nombre}</p>}
                 <input
-                className="form-control my-3"
-                type="email"
-                name="email"
-                placeholder="escribe tu email"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={form.email}
-                required
-                />
-                {errors.email && <p className="text-danger">{errors.email}</p>}
+                    onChange={handleInputChange}
+                    name="email"
+                    type={"email"}
+                    className="form-control my-3 "
+                    placeholder="tu mail"
+                    onBlur={handleBlur} />
+                    {errors.email && <p className="text-danger">{errors.email}</p>}
                 <input
-                className="form-control my-3"
-                type="number"
-                name="telefono"
-                placeholder="escribe tu telefono"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={form.telefono}
-                required
-                />
-                {errors.telefono && <p className="text-danger">{errors.telefono}</p>}
-                <textarea
-                className="form-control my-3"
-                name="comentarios" 
-                cols="50" 
-                rows="5" 
-                placeholder="escribe algun comentario" 
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={form.comentarios}
-                >
-                </textarea>
-                {errors.comentarios && <p className="text-danger">{errors.comentarios}</p>}
-                <input type="submit" value="enviar" onClick={handleSubmit} className="btn btn-success"></input>
+                    onChange={handleInputChange}
+                    name="direccion"
+                    type={"text"} 
+                    className="form-control my-3 " 
+                    placeholder="tu direccion"
+                    onBlur={handleBlur} />
+                    {errors.direccion && <p className="text-danger">{errors.direccion}</p>}
+                <input
+                    onChange={handleInputChange}
+                    name="telefono"
+                    type={"number"} 
+                    className="form-control my-3 " 
+                    placeholder="telefono"
+                    onBlur={handleBlur} />
+                    {errors.telefono && <p className="text-danger">{errors.telefono}</p>}
+            <button type="submit" className="btn btn-success">Terminar</button>
             </form>
-        </div>
         </div>
     )
 }
