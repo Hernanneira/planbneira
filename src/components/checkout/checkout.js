@@ -4,19 +4,20 @@ import { Navigate } from "react-router-dom"
 import { CartContext } from "../../CartContext/CartContext"
 import { db } from "../../firebase/config"
 import Swal from 'sweetalert2'
+import './checkout.css'
 
 
 
 const Checkout = () => {
     
-    const {cart, cartTotal, bought} = useContext(CartContext)
+    const {cart, cartTotal, exito} = useContext(CartContext)
     const [ordenId, setOrdenId] = useState(null)
-
     const [values, setValues] = useState({
         nombre:'',
         email:'',
         direccion:'',
         telefono:'',
+        comentarios:''
     })
 
     const handleInputChange = (e) => {
@@ -35,6 +36,7 @@ const Checkout = () => {
             fecha: new Date()
         } 
         console.log(orden)
+
 
         if(values.nombre.length < 3) {
             Swal.fire(
@@ -75,14 +77,14 @@ const Checkout = () => {
         addDoc(ordenesRef, orden)
             .then((doc)=>{
                 setOrdenId(doc.id)
-                bought()
+                exito()
             })
         
     }
 
     if(ordenId) {
         return (
-            <div>
+            <div className="checkout_finished">
                 <h2>Compra realizada</h2>
                 <p>tu numero de orden es: {ordenId}</p>
             </div>
@@ -97,7 +99,9 @@ const Checkout = () => {
 
 
     return (
+        <div className='checkout'>
         <div className='container'>
+            <h2> Ingresa tus datos para la compra</h2>
             <form onSubmit={handleSubmit}>
                 <input
                     onChange={handleInputChange}
@@ -109,22 +113,23 @@ const Checkout = () => {
                     onChange={handleInputChange}
                     name="email"
                     type={"email"}
-                    className="form-control my-3 "
+                    className="form-control my-3"
                     placeholder="tu mail" />
                 <input
                     onChange={handleInputChange}
                     name="direccion"
                     type={"text"} 
-                    className="form-control my-3 " 
+                    className="form-control my-3" 
                     placeholder="tu direccion" />
                 <input
                     onChange={handleInputChange}
                     name="telefono"
                     type={"number"} 
-                    className="form-control my-3 " 
+                    className="form-control my-3" 
                     placeholder="telefono" />
             <button type="submit" className="btn btn-success">Terminar</button>
             </form>
+        </div>
         </div>
     )
 }

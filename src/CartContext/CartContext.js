@@ -1,12 +1,14 @@
 import { createContext } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Swal from 'sweetalert2'
 
 export const CartContext = createContext()
 
+const init = JSON.parse(localStorage.getItem('carrito')) || []
+
 const CartProvider = ({children}) => {
 
-    const [cart, setCart] =useState([])
+    const [cart, setCart] =useState(init)
 
     const addToCart = (item) => {
         setCart([...cart, item])
@@ -72,16 +74,27 @@ const CartProvider = ({children}) => {
         
     }
 
-    const bought = () => {
+    const fracaso = () => {
+      Swal.fire(
+        'Campo incorrecto',
+        'Por favor revise todos los campos',
+        'error'
+    )
+    }
+    const exito = () => {
       Swal.fire({
-        position: 'top-end',
+        position: 'center',
         icon: 'success',
-        title: 'compra realizada',
+        title: 'Enviado exitosamente',
         showConfirmButton: false,
-        timer: 3000
+        timer: 5000
       })
       setCart([])
     }
+
+    useEffect(() => {
+      localStorage.setItem('carrito', JSON.stringify(cart))
+  }, [cart])
 
     return(
         <CartContext.Provider value={{
@@ -92,7 +105,8 @@ const CartProvider = ({children}) => {
             emptyCart,
             isInCart,
             removeItem,
-            bought,
+            exito,
+            fracaso,
         }}>
         {children}
         </CartContext.Provider>
