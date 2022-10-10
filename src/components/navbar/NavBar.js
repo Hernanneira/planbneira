@@ -39,16 +39,3 @@ const NavBar = () => {
 }
 
 export default NavBar;
-
-// const NavBar = () =>{
-//     return (
-//         <nav>
-//             <img src= '/assets/logoplanb.jpg'/>
-//             <a>Vinos</a>
-//             <a>Cervezas</a>
-//             <a>Bebidas</a>
-//         </nav>
-//     )
-// }
-
-// export default NavBar

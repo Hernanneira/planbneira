@@ -10,7 +10,6 @@ const ItemDetail = ({item}) => {
     const [cantidad, setCantidad] = useState(1)
     const {addToCart, isInCart } = useContext(CartContext)
 
-
     const handleAgregar = () => {
         const itemToCart = {
             id: item.id,

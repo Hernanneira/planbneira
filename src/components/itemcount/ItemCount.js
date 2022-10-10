@@ -1,11 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
-
-
-
 const ItemCount = ({stock, counter, setCounter, handleAdd, price}) => {
-
 
     const sumar = () => {
         if (counter < stock) {

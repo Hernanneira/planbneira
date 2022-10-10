@@ -1,9 +1,7 @@
 import Item from "../item/Item"
 import "./ItemList.css"
 
-
 const ItemList = ({produc}) => {
-
 
     return(
         <div className="ItemList container">
