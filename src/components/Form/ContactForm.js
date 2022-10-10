@@ -1,5 +1,4 @@
 import { useForm } from "../../CartContext/useForm";
-import { useRef} from "react";
 
 
 const ContactForm = () => {
@@ -11,7 +10,7 @@ const ContactForm = () => {
 
     return (
         <div>
-            <form ref={forms}>
+            <form>
                 <input
                 className="form-control my-3"
                 type="text"
