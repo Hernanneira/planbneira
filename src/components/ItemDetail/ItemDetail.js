@@ -26,6 +26,24 @@ const ItemDetail = ({item}) => {
     
     }
 
+    if(item.stock === 0) {
+        return (
+            <div className='fondo'>
+            {   
+                <div className='container d-inline-flex detalle'>
+                    <img className="imgDetail img-fluid" src={item.pictureUrl} alt="Img"/>
+                    <div className='text-white'>
+                        <h2>{item.title}{item.imagen}</h2>
+                        <p>{item.description}</p>
+                        <p>Precio articulo ${item.price}</p>
+                        <h2>sin stock!</h2>
+                    </div>
+                </div>
+            }
+            </div>
+        )
+    }
+
     return (
         <div className='fondo'>
             {   
