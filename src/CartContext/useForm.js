@@ -1,8 +1,9 @@
-import { useState, useContext} from "react";
-import { CartContext } from "../CartContext/CartContext"
+import { useState} from "react";
+// import { useState, useContext} from "react";
+// import { CartContext } from "../CartContext/CartContext"
 
 export const useForm = (init) => {
-    const {exito, fracaso} = useContext(CartContext)
+    // const {exito, fracaso} = useContext(CartContext)
     const [form,setForm] = useState(init)
     const [errors,setErrors] = useState({});
 
@@ -42,16 +43,16 @@ export const useForm = (init) => {
         setErrors(validationForm(form))
     }
 
-    const handleSubmit = (e) =>{
-        e.preventDefault()
-        setErrors(validationForm(form))
+    // const handleSubmit = (e) =>{
+    //     e.preventDefault()
+    //     setErrors(validationForm(form))
 
-        if((Object.keys(errors).length !== 0) || (form.nombre.length === 0)) {
-            fracaso()
-        }else{
-            exito()
-        }
-    }
+    //     if((Object.keys(errors).length !== 0) || (form.nombre.length === 0)) {
+    //         fracaso()
+    //     }else{
+    //         exito()
+    //     }
+    // }
 
     return {
         form,
@@ -59,7 +60,7 @@ export const useForm = (init) => {
         setErrors,
         handleChange,
         handleBlur,
-        handleSubmit,
+        // handleSubmit,
         validationForm,
     }
 }

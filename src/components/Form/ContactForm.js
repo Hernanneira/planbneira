@@ -1,16 +1,39 @@
 import { useForm } from "../../CartContext/useForm";
+import React, { useRef } from 'react';
+import emailjs from '@emailjs/browser';
+import { useContext} from "react";
+import { CartContext } from "../../CartContext/CartContext"
 
 
 const ContactForm = () => {
-    const {form, errors, handleChange, handleBlur,handleSubmit,} = useForm({
+    const {form, errors, setErrors, handleChange, handleBlur, validationForm} = useForm({
         nombre:'',
         email:'',
         comentarios:'',
     })
+    const {exito, fracaso} = useContext(CartContext)
+    const forms = useRef();
+
+    const handleSubmit = (e) =>{
+        e.preventDefault()
+        setErrors(validationForm(form))
+
+        if((Object.keys(errors).length !== 0) || (form.nombre.length === 0)) {
+            fracaso()
+        }else{
+            exito()
+            emailjs.sendForm('service_rwrjtin', 'template_7pq46ue', forms.current, 'L4YjW4p_asDZLLWyw')
+                .then((result) => {
+                    console.log(result.text);
+                }, (error) => {
+                    console.log(error.text);
+                });
+        }
+    }
 
     return (
         <div>
-            <form>
+            <form ref={forms}>
                 <input
                 className="form-control my-3"
                 type="text"
