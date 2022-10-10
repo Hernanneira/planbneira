@@ -11,7 +11,6 @@ const ItemListContainer = () => {
 const [productos, setProductos] = useState(null)
 const [loading, setLoading] = useState(true)
 const { categoriaId } = useParams()
-console.log(categoriaId)
 
   useEffect(()=>{
     setLoading(true)
@@ -22,7 +21,6 @@ console.log(categoriaId)
     getDocs(q)
         .then((snap)=>{
             const productosDB = snap.docs.map( (doc) => ({id: doc.id, ...doc.data()}) )
-            console.log(snap.docs.map( (doc) => ({id: doc.id, ...doc.data()}) )) 
             setProductos(productosDB)
         })
     .finally(()=>{

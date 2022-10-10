@@ -17,7 +17,6 @@ const CartProvider = ({children}) => {
     const removeItem = (id) => {
         Swal.fire({
             title: 'Seguro quieres eliminar el producto?',
-            // text: "Podrás volver a agregarlo si lo necesitas",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -32,7 +31,6 @@ const CartProvider = ({children}) => {
                 'eliminado con exito.',
                 'success'
               )
-            console.log(cart)
             }
           })
     } 

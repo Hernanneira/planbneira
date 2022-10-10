@@ -5,7 +5,6 @@ import { addDoc, collection, getDocs, writeBatch, query, where, documentId } fro
 import { db } from "../../firebase/config"
 import './checkout.css'
 import Swal from 'sweetalert2'
-// import {handleInputChange, handleBlur, handleSubmit } from "../helpers/helperForm"
 
 const Checkout = () => {
     
@@ -23,7 +22,7 @@ const Checkout = () => {
     const validateForm = () => {
         let errors = {}
         let regexName = /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
-        let regexEmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        let regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
         let regexComments = /^.{0,255}$/;
     
         if (!values.nombre.trim()){
@@ -117,8 +116,6 @@ const Checkout = () => {
                     })
             } else {
                 let itemNoStock =  outOfStock.map((item =>item.descripcion))
-                console.log(outOfStock)
-                console.log(itemNoStock)
                 Swal.fire({
                     title: 'Sin stock!',
                     text: `No contamos con sufiente stock de: ${itemNoStock}. ¿desea eliminarlo y continuar?`,

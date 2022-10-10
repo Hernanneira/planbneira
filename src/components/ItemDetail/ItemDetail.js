@@ -8,9 +8,8 @@ import { Link } from 'react-router-dom';
 const ItemDetail = ({item}) => {
 
     const [cantidad, setCantidad] = useState(1)
-    const {cart, addToCart, isInCart } = useContext(CartContext)
+    const {addToCart, isInCart } = useContext(CartContext)
 
-    console.log(cart)
 
     const handleAgregar = () => {
         const itemToCart = {
@@ -21,7 +20,6 @@ const ItemDetail = ({item}) => {
             imagen: item.pictureUrl
         }
         isInCart(item.id)
-        
         addToCart(itemToCart)
     
     }
