@@ -1,5 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import "./itemCount.css"
 
 const ItemCount = ({stock, counter, setCounter, handleAdd, price}) => {
 
@@ -19,7 +20,7 @@ const ItemCount = ({stock, counter, setCounter, handleAdd, price}) => {
     return (
         <div className="text-dark">
             <Card >
-                <Card.Body>
+                <Card.Body className='card-count'>
                     <Card.Title>Cantidad</Card.Title>
                     <Button onClick={restar} variant={`${counter === 1 ? "outline-danger" : "outline-warning "} btn-sm`} >-</Button>
                     <span className='mx-2'>{counter}</span>
